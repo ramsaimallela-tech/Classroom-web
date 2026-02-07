@@ -10,28 +10,25 @@
         rel="stylesheet">
     <style>
         :root {
-            --primary: #7C3AED;
-            --primary-light: #A78BFA;
+            --primary: #8B5CF6;
+            --primary-glow: rgba(139, 92, 246, 0.5);
             --secondary: #0F172A;
             --accent: #06D6A0;
-            --dark: #020617;
-            --light: #F8FAFC;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-dark: #1E293B;
-            --text-light: #64748B;
-            --border: #E2E8F0;
+            --accent-glow: rgba(6, 214, 160, 0.5);
+            --dark-bg: #050505;
+            --card-bg: rgba(15, 23, 42, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #F8FAFC;
+            --text-dim: #94A3B8;
+            --border: #1E293B;
 
-            --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #C026D3 100%);
-            --gradient-secondary: linear-gradient(135deg, #0F172A 0%, #334155 100%);
-            --gradient-hero: linear-gradient(135deg, #020617 0%, #1E1B4B 50%, #7C3AED 100%);
+            --gradient-space: linear-gradient(135deg, #050505 0%, #0F172A 100%);
+            --gradient-glow: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
 
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-glow: 0 0 20px var(--primary-glow);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
-            --radius-sm: 12px;
             --radius-md: 16px;
             --radius-lg: 24px;
         }
@@ -44,36 +41,41 @@
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--light);
-            color: var(--text-dark);
+            background: var(--dark-bg);
+            color: var(--text-main);
             overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(217, 70, 239, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
         /* Navigation */
         nav {
             position: fixed;
-            top: 1rem;
+            top: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 0.75rem 2rem;
+            width: 95%;
+            max-width: 1300px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.75rem 2.5rem;
             border-radius: 100px;
             border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         nav:hover {
-            background: rgba(255, 255, 255, 0.6);
-            width: 92%;
+            width: 97%;
+            background: rgba(15, 23, 42, 0.95);
+            border-color: var(--primary-glow);
         }
 
         .logo {
@@ -263,22 +265,42 @@
 
         .student-card {
             background: var(--card-bg);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: var(--radius-md);
             padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             cursor: pointer;
             border: 1px solid var(--glass-border);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.05),
+                    transparent);
+            transition: 0.5s;
+        }
+
+        .student-card:hover::before {
+            left: 100%;
         }
 
         .student-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: var(--shadow-lg);
-            background: rgba(255, 255, 255, 0.9);
-            border-color: var(--primary-light);
+            transform: translateY(-12px) scale(1.03);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), var(--shadow-glow);
+            background: rgba(15, 23, 42, 0.9);
         }
 
         .student-avatar {
@@ -563,44 +585,39 @@
 
         /* Birthday Section */
         .birthday-section {
-            background: white;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
             border-radius: var(--radius-lg);
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 2rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 3rem;
+            border: 1px solid var(--glass-border);
         }
 
         .birthday-today {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #FFE5E5 0%, #FFF5E6 100%);
+            gap: 1.5rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(217, 70, 239, 0.1) 100%);
             border-radius: var(--radius-md);
-            margin-bottom: 1.5rem;
-        }
-
-        .birthday-icon {
-            font-size: 3rem;
-        }
-
-        .birthday-info h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .birthday-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--primary-glow);
         }
 
         .birthday-card {
-            padding: 1rem;
-            background: linear-gradient(135deg, #E0F7FA 0%, #FFE0F0 100%);
-            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .birthday-card:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--primary);
+            transform: scale(1.05);
         }
 
         /* Achievements */
@@ -647,19 +664,21 @@
         }
 
         .admin-card {
-            background: white;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
             border-radius: var(--radius-md);
             padding: 2rem;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--glass-border);
         }
 
         .admin-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.05);
             border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), var(--shadow-glow);
         }
 
         .admin-icon {
@@ -789,17 +808,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
             to {
@@ -808,6 +817,28 @@
             }
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .stagger-item {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        /* Dark Mode Overrides (Legacy) */
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -1218,6 +1249,10 @@
                     <div class="admin-icon">🏆</div>
                     <div class="admin-title">Add Achievement</div>
                 </div>
+                <div class="admin-card" onclick="openMarkAttendance()">
+                    <div class="admin-icon">✔️</div>
+                    <div class="admin-title">Mark Attendance</div>
+                </div>
             </div>
         </section>
     </div>
@@ -1370,6 +1405,51 @@
         </div>
     </div>
 
+    <!-- Mark Attendance Modal -->
+    <div id="markAttendanceModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Mark Attendance</h3>
+                <button class="close-modal" onclick="closeModal('markAttendanceModal')">&times;</button>
+            </div>
+            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <label class="form-label">Subject</label>
+                    <select class="form-select" id="attendanceSubject">
+                        <option value="DSP">Digital Signal Processing</option>
+                        <option value="VLSI">VLSI Design</option>
+                        <option value="CommSys">Communication Systems</option>
+                        <option value="Micro">Microprocessors</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="attendanceDate"
+                        value="${new Date().toISOString().split('T')[0]}">
+                </div>
+            </div>
+            <div
+                style="max-height: 400px; overflow-y: auto; margin-bottom: 2rem; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1rem;">
+                <table style="width: 100%; border-collapse: collapse; color: var(--text-main);">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--border); text-align: left;">
+                            <th style="padding: 0.5rem;">Roll No</th>
+                            <th style="padding: 0.5rem;">Student Name</th>
+                            <th style="padding: 0.5rem; text-align: center;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="markAttendanceList">
+                        <!-- Student rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="btn btn-secondary" onclick="closeModal('markAttendanceModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitAttendance()">Submit Attendance</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Add Announcement Modal -->
     <div id="addAnnouncement" class="modal">
         <div class="modal-content">
@@ -1519,12 +1599,12 @@
         // Render functions
         function renderStudents() {
             const grid = document.getElementById('studentGrid');
-            grid.innerHTML = students.map(student => `
-                <div class="student-card" onclick="viewStudentDetails('${student.roll}')">
+            grid.innerHTML = students.map((student, index) => `
+                <div class="student-card stagger-item" style="animation-delay: ${index * 0.05}s" onclick="viewStudentDetails('${student.roll}')">
                     <div class="student-avatar">${student.name.split(' ').map(n => n[0]).join('')}</div>
                     <div class="student-name">${student.name}</div>
                     <div class="student-roll">${student.roll}</div>
-                    <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--primary); font-weight: 600;">View Profile →</div>
+                    <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--primary);">View Profile →</div>
                 </div>
             `).join('');
         }
@@ -1548,13 +1628,13 @@
 
         function renderTeachers() {
             const grid = document.getElementById('teacherGrid');
-            grid.innerHTML = teachers.map(teacher => `
-                <div class="teacher-card">
-                    <div class="teacher-subject">${teacher.subject}</div>
-                    <div class="teacher-name">${teacher.name}</div>
-                    <div style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-dark);"><strong>${teacher.qualification}</strong></div>
-                    <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Exp: ${teacher.experience} | Cabin: ${teacher.cabin}</div>
-                    <div class="teacher-contact">${teacher.email}</div>
+            grid.innerHTML = teachers.map((teacher, index) => `
+                <div class="teacher-card stagger-item" style="animation-delay: ${index * 0.1}s; background: var(--card-bg); border-left: 4px solid var(--primary); color: var(--text-main); backdrop-filter: blur(12px); border-radius: var(--radius-md); padding: 2rem; box-shadow: var(--shadow-lg);">
+                    <div class="teacher-subject" style="color: var(--primary); font-size: 1.4rem; margin-bottom: 0.5rem;">${teacher.subject}</div>
+                    <div class="teacher-name" style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem;">${teacher.name}</div>
+                    <div style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-dim);"><strong>${teacher.qualification}</strong></div>
+                    <div style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.5rem;">Exp: ${teacher.experience} | Cabin: ${teacher.cabin}</div>
+                    <div class="teacher-contact" style="color: var(--primary); font-family: 'JetBrains Mono'; font-size: 0.85rem;">${teacher.email}</div>
                 </div>
             `).join('');
         }
@@ -1598,22 +1678,27 @@
             const tbody = document.getElementById('attendanceList');
             const attendanceData = [
                 { subject: 'Digital Signal Processing', total: 45, attended: 42 },
-                { subject: 'VLSI Design', total: 40, attended: 31 },
-                { subject: 'Communication Systems', total: 42, attended: 37 },
-                { subject: 'Microprocessors', total: 38, attended: 35 },
-                { subject: 'Control Systems', total: 35, attended: 30 },
-                { subject: 'EM Theory', total: 30, attended: 28 }
+                { subject: 'VLSI Design', total: 40, attended: 35 },
+                { subject: 'Communication Systems', total: 38, attended: 34 },
+                { subject: 'Microprocessors', total: 42, attended: 38 },
+                { subject: 'Control Systems', total: 35, attended: 31 }
             ];
 
             tbody.innerHTML = attendanceData.map(data => {
-                const percentage = Math.round((data.attended / data.total) * 100);
-                const color = percentage >= 75 ? 'var(--accent)' : 'var(--danger)';
+                const percentage = ((data.attended / data.total) * 100).toFixed(1);
                 return `
-                    <tr>
-                        <td class="period-name">${data.subject}</td>
-                        <td>${data.total}</td>
-                        <td>${data.attended}</td>
-                        <td style="color: ${color}; font-weight: 700;">${percentage}%</td>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 1rem; font-weight: 600; color: var(--text-main);">${data.subject}</td>
+                        <td style="padding: 1rem;">${data.total}</td>
+                        <td style="padding: 1rem;">${data.attended}</td>
+                        <td style="padding: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 100px; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;">
+                                    <div style="width: ${percentage}%; height: 100%; background: var(--gradient-glow); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                                </div>
+                                <span style="font-weight: 700; color: var(--primary);">${percentage}%</span>
+                            </div>
+                        </td>
                     </tr>
                 `;
             }).join('');
@@ -1621,28 +1706,28 @@
 
         function renderNotes() {
             const grid = document.getElementById('notesGrid');
-            grid.innerHTML = notes.map(note => `
-                <div class="note-card">
-                    <div class="note-subject">${note.subject}</div>
-                    <div class="note-title">${note.title}</div>
-                    <div class="note-meta">📄 ${note.type} • ${formatDate(note.date)}</div>
-                    <a href="${note.link}" class="note-btn" target="_blank">View / Download</a>
+            grid.innerHTML = notes.map((note, index) => `
+                <div class="note-card stagger-item" style="animation-delay: ${index * 0.1}s; background: var(--card-bg); border-top: 4px solid var(--accent); color: var(--text-main); backdrop-filter: blur(12px);">
+                    <div class="note-subject" style="color: var(--accent);">${note.subject}</div>
+                    <div class="note-title" style="font-weight: 700;">${note.title}</div>
+                    <div class="note-meta" style="color: var(--text-dim);">📄 ${note.type} • ${formatDate(note.date)}</div>
+                    <a href="${note.link}" class="note-btn" style="background: var(--gradient-glow); box-shadow: 0 0 10px var(--accent-glow);" target="_blank">View / Download</a>
                 </div>
             `).join('');
         }
 
         function renderAssignments() {
             const list = document.getElementById('assignmentList');
-            list.innerHTML = assignments.map(assignment => {
+            list.innerHTML = assignments.map((assignment, index) => {
                 const isOverdue = new Date(assignment.dueDate) < new Date() && assignment.status === 'open';
                 return `
-                    <div class="assignment-card ${isOverdue ? 'overdue' : ''}">
+                    <div class="assignment-card stagger-item ${isOverdue ? 'overdue' : ''}" style="animation-delay: ${index * 0.1}s; background: var(--card-bg); color: var(--text-main); border-left: 4px solid ${isOverdue ? '#ef4444' : 'var(--accent)'};">
                         <div class="assignment-info">
-                            <h3>${assignment.title}</h3>
-                            <div class="assignment-subject">${assignment.subject}</div>
-                            <div class="assignment-due">Due: ${formatDate(assignment.dueDate)}</div>
+                            <h3 style="font-weight: 700;">${assignment.title}</h3>
+                            <div class="assignment-subject" style="color: var(--text-dim);">${assignment.subject}</div>
+                            <div class="assignment-due" style="color: var(--text-dim);">Due: ${formatDate(assignment.dueDate)}</div>
                         </div>
-                        <div class="assignment-status status-${assignment.status}">
+                        <div class="assignment-status status-${assignment.status}" style="background: rgba(6, 214, 160, 0.1); color: var(--accent); border: 1px solid var(--accent-glow);">
                             ${assignment.status === 'open' ? 'Open' : 'Closed'}
                         </div>
                     </div>
@@ -1675,12 +1760,12 @@
 
         function renderAchievements() {
             const grid = document.getElementById('achievementGrid');
-            grid.innerHTML = achievements.map(achievement => `
-                <div class="achievement-card">
-                    <div class="achievement-category">${achievement.category}</div>
-                    <div class="achievement-title">${achievement.title}</div>
-                    <div class="achievement-student">${achievement.student}</div>
-                    <div class="note-meta">${formatDate(achievement.date)}</div>
+            grid.innerHTML = achievements.map((achievement, index) => `
+                <div class="achievement-card stagger-item" style="animation-delay: ${index * 0.1}s; background: var(--card-bg); border-top: 4px solid #F59E0B; color: var(--text-main);">
+                    <div class="achievement-category" style="color: #F59E0B;">${achievement.category}</div>
+                    <div class="achievement-title" style="font-weight: 700;">${achievement.title}</div>
+                    <div class="achievement-student" style="color: var(--text-dim);">${achievement.student}</div>
+                    <div class="note-meta" style="color: var(--text-dim);">${formatDate(achievement.date)}</div>
                 </div>
             `).join('');
         }
@@ -1861,6 +1946,52 @@
             closeModal('addAchievement');
             e.target.reset();
             alert('Achievement added successfully!');
+        }
+
+        // Attendance Marking Logic
+        function openMarkAttendance() {
+            const list = document.getElementById('markAttendanceList');
+            list.innerHTML = students.map(student => `
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 0.75rem; font-family: 'JetBrains Mono';">${student.roll}</td>
+                    <td style="padding: 0.75rem;">${student.name}</td>
+                    <td style="padding: 0.75rem; text-align: center;">
+                        <input type="checkbox" checked style="width: 20px; height: 20px; accent-color: var(--primary);">
+                    </td>
+                </tr>
+            `).join('');
+            openModal('markAttendanceModal');
+        }
+
+        function submitAttendance() {
+            const subject = document.getElementById('attendanceSubject').value;
+            const date = document.getElementById('attendanceDate').value;
+
+            closeModal('markAttendanceModal');
+
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background: var(--gradient-glow);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 50px;
+                box-shadow: var(--shadow-glow);
+                z-index: 3000;
+                font-weight: 700;
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            `;
+            toast.textContent = `✅ Attendance submitted for ${subject} on ${date}!`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(-50%) translateY(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(100px)';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
 
         // Theme toggle
