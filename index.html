@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECE Section C - Class Portal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --primary-light: #A78BFA;
+            --secondary: #0F172A;
+            --accent: #06D6A0;
+            --dark: #020617;
+            --light: #F8FAFC;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+
+            --gradient-primary: linear-gradient(135deg, #7C3AED 0%, #C026D3 100%);
+            --gradient-secondary: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+            --gradient-hero: linear-gradient(135deg, #020617 0%, #1E1B4B 50%, #7C3AED 100%);
+
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        nav:hover {
+            background: rgba(255, 255, 255, 0.6);
+            width: 92%;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .admin-btn {
+            background: var(--gradient-secondary);
+            color: white !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            margin-left: 2rem;
+            margin-right: 2rem;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-hero);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-top: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Student Grid */
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .student-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .student-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--primary-light);
+        }
+
+        .student-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .student-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            text-align: center;
+        }
+
+        .student-roll {
+            color: var(--text-light);
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Teacher Cards */
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .teacher-subject {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-name {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .teacher-contact {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Timetable */
+        .timetable-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+        }
+
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        .timetable th {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .timetable td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timetable tr:hover {
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .period-name {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Notes Section */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .note-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent);
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .note-subject {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .note-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-meta {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .note-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .note-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Assignments */
+        .assignment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .assignment-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--success);
+        }
+
+        .assignment-card.overdue {
+            border-left-color: var(--danger);
+        }
+
+        .assignment-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .assignment-subject {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .assignment-due {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .assignment-status {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .status-open {
+            background: rgba(6, 214, 160, 0.1);
+            color: var(--success);
+        }
+
+        .status-closed {
+            background: rgba(239, 71, 111, 0.1);
+            color: var(--danger);
+        }
+
+        /* Announcements */
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .announcement-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .announcement-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .announcement-date {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .announcement-content {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::before {
+            content: '📸';
+            font-size: 3rem;
+        }
+
+        /* Birthday Section */
+        .birthday-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .birthday-today {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF5E6 100%);
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .birthday-icon {
+            font-size: 3rem;
+        }
+
+        .birthday-info h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .birthday-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .birthday-card {
+            padding: 1rem;
+            background: linear-gradient(135deg, #E0F7FA 0%, #FFE0F0 100%);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        /* Achievements */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--success);
+        }
+
+        .achievement-category {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-student {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Admin Panel */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .admin-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .student-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        body.dark-mode {
+            --light: #020617;
+            --dark: #F8FAFC;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-dark: #F8FAFC;
+            --text-light: #94A3B8;
+            --border: #334155;
+        }
+
+        body.dark-mode nav {
+            background: var(--glass-bg);
+        }
+
+        body.dark-mode .student-card,
+        body.dark-mode .teacher-card,
+        body.dark-mode .timetable-container,
+        body.dark-mode .note-card,
+        body.dark-mode .assignment-card,
+        body.dark-mode .announcement-card,
+        body.dark-mode .achievement-card,
+        body.dark-mode .admin-card,
+        body.dark-mode .birthday-section,
+        body.dark-mode .modal-content,
+        body.dark-mode .attendance-card {
+            background: var(--card-bg);
+        }
+
+        /* Attendance Styles */
+        .attendance-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .attendance-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .attendance-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .attendance-circle::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 8px solid var(--primary);
+            border-top-color: transparent;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">ECE - C</div>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active" onclick="showSection('home')">Home</a></li>
+            <li><a href="#students" class="nav-link" onclick="showSection('students')">Students</a></li>
+            <li><a href="#teachers" class="nav-link" onclick="showSection('teachers')">Teachers</a></li>
+            <li><a href="#attendance" class="nav-link" onclick="showSection('attendance')">Attendance</a></li>
+            <li><a href="#timetable" class="nav-link" onclick="showSection('timetable')">Timetable</a></li>
+            <li><a href="#notes" class="nav-link" onclick="showSection('notes')">Notes</a></li>
+            <li><a href="#assignments" class="nav-link" onclick="showSection('assignments')">Assignments</a></li>
+            <li><a href="#announcements" class="nav-link" onclick="showSection('announcements')">Announcements</a></li>
+            <li><a href="#gallery" class="nav-link" onclick="showSection('gallery')">Gallery</a></li>
+            <li><a href="#achievements" class="nav-link" onclick="showSection('achievements')">Achievements</a></li>
+            <li><a href="#admin" class="nav-link admin-btn" onclick="showSection('admin')">Admin</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>ECE Section C</h1>
+            <div class="hero-subtitle">Electronics & Communication Engineering</div>
+            <div class="hero-subtitle">Academic Year 2024-2025</div>
+            <div class="hero-quote">"61 minds, one class, endless memories."</div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">61</div>
+                    <div class="stat-label">Students</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Subjects</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Faculty</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="section-header">
+                <h2 class="section-title">Welcome to Our Class Portal</h2>
+                <p class="section-subtitle">Your one-stop destination for all class-related information and resources
+                </p>
+            </div>
+
+            <!-- Birthday Section -->
+            <div class="birthday-section">
+                <h3 style="font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">🎂 Birthdays</h3>
+                <div class="birthday-today">
+                    <div class="birthday-icon">🎉</div>
+                    <div class="birthday-info">
+                        <h3>Today's Birthday</h3>
+                        <p id="todayBirthday">No birthdays today</p>
+                    </div>
+                </div>
+                <h4 style="margin-bottom: 1rem; color: var(--text-light);">This Month</h4>
+                <div class="birthday-list" id="monthBirthdays">
+                    <!-- Birthday cards will be added here -->
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="admin-grid">
+                <div class="admin-card" onclick="showSection('announcements')">
+                    <div class="admin-icon">📢</div>
+                    <div class="admin-title">Latest Announcements</div>
+                </div>
+                <div class="admin-card" onclick="showSection('assignments')">
+                    <div class="admin-icon">📝</div>
+                    <div class="admin-title">Active Assignments</div>
+                </div>
+                <div class="admin-card" onclick="showSection('notes')">
+                    <div class="admin-icon">📚</div>
+                    <div class="admin-title">Study Resources</div>
+                </div>
+                <div class="admin-card" onclick="showSection('gallery')">
+                    <div class="admin-icon">📸</div>
+                    <div class="admin-title">Photo Gallery</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Attendance Section -->
+        <section id="attendance" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Attendance Tracking</h2>
+                <p class="section-subtitle">Monitor your academic presence</p>
+            </div>
+
+            <div class="attendance-summary">
+                <div class="attendance-card">
+                    <div class="attendance-circle">85%</div>
+                    <div class="student-name">Overall Attendance</div>
+                </div>
+                <div class="attendance-card">
+                    <div class="attendance-circle">92%</div>
+                    <div class="student-name">DSP</div>
+                </div>
+                <div class="attendance-card">
+                    <div class="attendance-circle">78%</div>
+                    <div class="student-name">VLSI</div>
+                </div>
+                <div class="attendance-card">
+                    <div class="attendance-circle">88%</div>
+                    <div class="student-name">Comm Sys</div>
+                </div>
+            </div>
+
+            <div class="timetable-container" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; font-family: 'Syne', sans-serif;">Detailed Subject-wise Attendance
+                </h3>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Total Classes</th>
+                            <th>Attended</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceList">
+                        <!-- Attendance rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Students Section -->
+        <section id="students" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Our Students</h2>
+                <p class="section-subtitle">Meet all 61 members of ECE Section C</p>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" id="studentSearch"
+                    placeholder="🔍 Search by name or roll number..." onkeyup="searchStudents()">
+            </div>
+
+            <div class="student-grid" id="studentGrid">
+                <!-- Students will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Teachers Section -->
+        <section id="teachers" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Faculty Members</h2>
+                <p class="section-subtitle">Our dedicated teaching staff</p>
+            </div>
+
+            <div class="teacher-grid" id="teacherGrid">
+                <!-- Teachers will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Timetable Section -->
+        <section id="timetable" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Class Timetable</h2>
+                <p class="section-subtitle">Weekly schedule for ECE Section C</p>
+            </div>
+
+            <div class="timetable-container">
+                <table class="timetable" id="timetableTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Timetable will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Notes Section -->
+        <section id="notes" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Notes & Resources</h2>
+                <p class="section-subtitle">Study materials for all subjects</p>
+            </div>
+
+            <div class="notes-grid" id="notesGrid">
+                <!-- Notes will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Assignments Section -->
+        <section id="assignments" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Assignments</h2>
+                <p class="section-subtitle">Track your pending and completed assignments</p>
+            </div>
+
+            <div class="assignment-list" id="assignmentList">
+                <!-- Assignments will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Announcements Section -->
+        <section id="announcements" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Announcements</h2>
+                <p class="section-subtitle">Latest updates and notices</p>
+            </div>
+
+            <div class="announcement-list" id="announcementList">
+                <!-- Announcements will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Photo Gallery</h2>
+                <p class="section-subtitle">Memories from our class events</p>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Class Achievements</h2>
+                <p class="section-subtitle">Celebrating our success stories</p>
+            </div>
+
+            <div class="achievement-grid" id="achievementGrid">
+                <!-- Achievements will be added dynamically -->
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Admin Panel</h2>
+                <p class="section-subtitle">Manage class content and information</p>
+            </div>
+
+            <div class="admin-grid">
+                <div class="admin-card" onclick="openModal('addStudent')">
+                    <div class="admin-icon">👨‍🎓</div>
+                    <div class="admin-title">Add Student</div>
+                </div>
+                <div class="admin-card" onclick="openModal('addTeacher')">
+                    <div class="admin-icon">👩‍🏫</div>
+                    <div class="admin-title">Add Teacher</div>
+                </div>
+                <div class="admin-card" onclick="openModal('addNote')">
+                    <div class="admin-icon">📚</div>
+                    <div class="admin-title">Upload Notes</div>
+                </div>
+                <div class="admin-card" onclick="openModal('addAssignment')">
+                    <div class="admin-icon">📝</div>
+                    <div class="admin-title">Add Assignment</div>
+                </div>
+                <div class="admin-card" onclick="openModal('addAnnouncement')">
+                    <div class="admin-icon">📢</div>
+                    <div class="admin-title">Post Announcement</div>
+                </div>
+                <div class="admin-card" onclick="openModal('addAchievement')">
+                    <div class="admin-icon">🏆</div>
+                    <div class="admin-title">Add Achievement</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modals -->
+    <!-- Student Detail Modal -->
+    <div id="studentDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Student Profile</h3>
+                <button class="close-modal" onclick="closeModal('studentDetailModal')">&times;</button>
+            </div>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div id="detailAvatar" class="student-avatar" style="width: 120px; height: 120px; font-size: 3rem;">JS
+                </div>
+                <h2 id="detailName" style="margin-top: 1rem;">John Sullivan</h2>
+                <p id="detailRoll" style="color: var(--text-light); font-family: 'JetBrains Mono';">ECE001</p>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                <div>
+                    <strong>Birthday:</strong>
+                    <p id="detailBday">Jan 25, 2004</p>
+                </div>
+                <div>
+                    <strong>Blood Group:</strong>
+                    <p id="detailBlood">O+</p>
+                </div>
+                <div>
+                    <strong>Phone:</strong>
+                    <p id="detailPhone">+91 9876543210</p>
+                </div>
+                <div>
+                    <strong>Father's Name:</strong>
+                    <p id="detailFather">Mr. Sullivan</p>
+                </div>
+            </div>
+            <div>
+                <strong>Address:</strong>
+                <p id="detailAddress" style="color: var(--text-light); margin-top: 0.5rem; line-height: 1.5;">H-No: 123,
+                    Campus View, City Street, Pin-50001</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div id="addStudent" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Student</h3>
+                <button class="close-modal" onclick="closeModal('addStudent')">&times;</button>
+            </div>
+            <form onsubmit="addStudent(event)">
+                <div class="form-group">
+                    <label class="form-label">Student Name</label>
+                    <input type="text" class="form-input" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Roll Number</label>
+                    <input type="text" class="form-input" id="studentRoll" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Birthday (Optional)</label>
+                    <input type="date" class="form-input" id="studentBirthday">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Student</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Teacher Modal -->
+    <div id="addTeacher" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Faculty Member</h3>
+                <button class="close-modal" onclick="closeModal('addTeacher')">&times;</button>
+            </div>
+            <form onsubmit="addTeacher(event)">
+                <div class="form-group">
+                    <label class="form-label">Subject Name</label>
+                    <input type="text" class="form-input" id="teacherSubject" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Faculty Name</label>
+                    <input type="text" class="form-input" id="teacherName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email (Optional)</label>
+                    <input type="email" class="form-input" id="teacherEmail">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Teacher</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div id="addNote" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Upload Study Material</h3>
+                <button class="close-modal" onclick="closeModal('addNote')">&times;</button>
+            </div>
+            <form onsubmit="addNote(event)">
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-input" id="noteSubject" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" id="noteTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Type</label>
+                    <select class="form-select" id="noteType" required>
+                        <option value="PDF">PDF</option>
+                        <option value="PPT">PowerPoint</option>
+                        <option value="Link">Google Drive Link</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Link / File URL</label>
+                    <input type="url" class="form-input" id="noteLink" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Note</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Assignment Modal -->
+    <div id="addAssignment" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Assignment</h3>
+                <button class="close-modal" onclick="closeModal('addAssignment')">&times;</button>
+            </div>
+            <form onsubmit="addAssignment(event)">
+                <div class="form-group">
+                    <label class="form-label">Assignment Title</label>
+                    <input type="text" class="form-input" id="assignmentTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-input" id="assignmentSubject" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" class="form-input" id="assignmentDue" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Assignment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Announcement Modal -->
+    <div id="addAnnouncement" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Post Announcement</h3>
+                <button class="close-modal" onclick="closeModal('addAnnouncement')">&times;</button>
+            </div>
+            <form onsubmit="addAnnouncement(event)">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" id="announcementTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-textarea" id="announcementContent" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Announcement</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Achievement Modal -->
+    <div id="addAchievement" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Achievement</h3>
+                <button class="close-modal" onclick="closeModal('addAchievement')">&times;</button>
+            </div>
+            <form onsubmit="addAchievement(event)">
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" id="achievementCategory" required>
+                        <option value="Hackathon">Hackathon</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Competition">Competition</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Achievement Title</label>
+                    <input type="text" class="form-input" id="achievementTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Student Name(s)</label>
+                    <input type="text" class="form-input" id="achievementStudent" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="achievementDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Achievement</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+    <script>
+        // Sample Data
+        let students = [];
+        let teachers = [];
+        let notes = [];
+        let assignments = [];
+        let announcements = [];
+        let achievements = [];
+
+        // Generate sample students
+        function generateSampleStudents() {
+            const firstNames = ['Aarav', 'Vivaan', 'Aditya', 'Arjun', 'Sai', 'Krishna', 'Rohan', 'Aryan', 'Ishaan', 'Shaurya',
+                'Ananya', 'Diya', 'Isha', 'Priya', 'Sara', 'Kavya', 'Aanya', 'Navya', 'Riya', 'Shreya'];
+            const lastNames = ['Sharma', 'Kumar', 'Reddy', 'Patel', 'Singh', 'Rao', 'Gupta', 'Nair', 'Joshi', 'Mehta'];
+
+            for (let i = 1; i <= 61; i++) {
+                const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                const month = Math.floor(Math.random() * 12) + 1;
+                const day = Math.floor(Math.random() * 28) + 1;
+
+                students.push({
+                    name: `${firstName} ${lastName}`,
+                    roll: `ECE${String(i).padStart(3, '0')}`,
+                    birthday: `2004-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+                });
+            }
+        }
+
+        // Generate sample teachers
+        function generateSampleTeachers() {
+            teachers = [
+                { subject: 'Digital Signal Processing', name: 'Dr. Rajesh Kumar', email: 'rajesh.k@college.edu', qualification: 'Ph.D. in Signal Processing', experience: '15 Years', cabin: 'E-Block, 302' },
+                { subject: 'VLSI Design', name: 'Prof. Sunita Mehta', email: 'sunita.m@college.edu', qualification: 'M.Tech, Ph.D. (Pursuing)', experience: '10 Years', cabin: 'E-Block, 201' },
+                { subject: 'Communication Systems', name: 'Dr. Amit Sharma', email: 'amit.s@college.edu', qualification: 'Ph.D. in Wireless Comm', experience: '12 Years', cabin: 'E-Block, 405' },
+                { subject: 'Microprocessors', name: 'Prof. Kavita Rao', email: 'kavita.r@college.edu', qualification: 'M.Tech in Embedded Systems', experience: '8 Years', cabin: 'E-Block, 108' },
+                { subject: 'Control Systems', name: 'Dr. Vijay Patel', email: 'vijay.p@college.edu', qualification: 'Ph.D. in Control Theory', experience: '18 Years', cabin: 'E-Block, 305' },
+                { subject: 'Electromagnetic Theory', name: 'Prof. Neha Gupta', email: 'neha.g@college.edu', qualification: 'M.Tech in RF & Microwave', experience: '7 Years', cabin: 'E-Block, 210' },
+                { subject: 'Analog Circuits', name: 'Dr. Prakash Reddy', email: 'prakash.r@college.edu', qualification: 'Ph.D. in Microelectronics', experience: '20 Years', cabin: 'E-Block, 402' },
+                { subject: 'Digital Electronics Lab', name: 'Prof. Anjali Singh', email: 'anjali.s@college.edu', qualification: 'M.Tech in VLSI', experience: '5 Years', cabin: 'E-Block, 102' }
+            ];
+        }
+
+        // Generate sample data
+        function generateSampleNotes() {
+            notes = [
+                { subject: 'Digital Signal Processing', title: 'Unit 1 - Introduction to DSP', type: 'PDF', link: '#', date: '2025-02-01' },
+                { subject: 'VLSI Design', title: 'CMOS Fabrication Process', type: 'PPT', link: '#', date: '2025-02-03' },
+                { subject: 'Communication Systems', title: 'Amplitude Modulation Notes', type: 'PDF', link: '#', date: '2025-02-05' },
+                { subject: 'Microprocessors', title: '8086 Architecture', type: 'Link', link: '#', date: '2025-02-02' }
+            ];
+        }
+
+        function generateSampleAssignments() {
+            const today = new Date();
+            assignments = [
+                { title: 'DSP Problem Set 1', subject: 'Digital Signal Processing', dueDate: '2025-02-15', status: 'open' },
+                { title: 'VLSI Layout Design', subject: 'VLSI Design', dueDate: '2025-02-20', status: 'open' },
+                { title: 'Communication Lab Report', subject: 'Communication Systems', dueDate: '2025-02-05', status: 'closed' }
+            ];
+        }
+
+        function generateSampleAnnouncements() {
+            announcements = [
+                { title: 'Mid-Semester Exam Schedule Released', content: 'The mid-semester examinations will be conducted from March 1-8, 2025. Please check the detailed timetable on the notice board.', date: '2025-02-06' },
+                { title: 'Industrial Visit to ISRO', content: 'An industrial visit to ISRO Satellite Centre has been organized for ECE students on February 18, 2025. Interested students should submit their names to the CR by Feb 10.', date: '2025-02-05' },
+                { title: 'Guest Lecture on AI in Electronics', content: 'A guest lecture on "Applications of AI in Electronics" will be conducted by Dr. Priya Sharma from IIT Delhi on February 12 at 2 PM in Seminar Hall.', date: '2025-02-04' }
+            ];
+        }
+
+        function generateSampleAchievements() {
+            achievements = [
+                { category: 'Hackathon', title: 'Smart India Hackathon 2024 - Winner', student: 'Aarav Sharma, Priya Kumar, Rohan Singh', date: '2024-12-15' },
+                { category: 'Sports', title: 'Inter-College Cricket Tournament - Runners Up', student: 'Team ECE-C', date: '2025-01-20' },
+                { category: 'Academic', title: 'Best Paper Award - IEEE Conference', student: 'Ishaan Patel', date: '2025-01-10' },
+                { category: 'Competition', title: 'National Level Circuit Design Competition - 3rd Place', student: 'Diya Reddy, Kavya Nair', date: '2024-11-25' }
+            ];
+        }
+
+        // Initialize
+        generateSampleStudents();
+        generateSampleTeachers();
+        generateSampleNotes();
+        generateSampleAssignments();
+        generateSampleAnnouncements();
+        generateSampleAchievements();
+
+        // Render functions
+        function renderStudents() {
+            const grid = document.getElementById('studentGrid');
+            grid.innerHTML = students.map(student => `
+                <div class="student-card" onclick="viewStudentDetails('${student.roll}')">
+                    <div class="student-avatar">${student.name.split(' ').map(n => n[0]).join('')}</div>
+                    <div class="student-name">${student.name}</div>
+                    <div class="student-roll">${student.roll}</div>
+                    <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--primary); font-weight: 600;">View Profile →</div>
+                </div>
+            `).join('');
+        }
+
+        function viewStudentDetails(roll) {
+            const student = students.find(s => s.roll === roll);
+            if (!student) return;
+
+            const modal = document.getElementById('studentDetailModal');
+            document.getElementById('detailAvatar').textContent = student.name.split(' ').map(n => n[0]).join('');
+            document.getElementById('detailName').textContent = student.name;
+            document.getElementById('detailRoll').textContent = student.roll;
+            document.getElementById('detailBday').textContent = formatDate(student.birthday);
+            document.getElementById('detailBlood').textContent = student.bloodGroup || 'O+';
+            document.getElementById('detailPhone').textContent = student.phone || 'N/A';
+            document.getElementById('detailFather').textContent = student.fatherName || 'N/A';
+            document.getElementById('detailAddress').textContent = student.address || 'H-No: 123, Campus View, City';
+
+            modal.classList.add('active');
+        }
+
+        function renderTeachers() {
+            const grid = document.getElementById('teacherGrid');
+            grid.innerHTML = teachers.map(teacher => `
+                <div class="teacher-card">
+                    <div class="teacher-subject">${teacher.subject}</div>
+                    <div class="teacher-name">${teacher.name}</div>
+                    <div style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-dark);"><strong>${teacher.qualification}</strong></div>
+                    <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">Exp: ${teacher.experience} | Cabin: ${teacher.cabin}</div>
+                    <div class="teacher-contact">${teacher.email}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTimetable() {
+            const tbody = document.querySelector('#timetableTable tbody');
+            const times = ['9:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 1:00', '2:00 - 3:00', '3:00 - 4:00'];
+            const schedule = [
+                ['DSP', 'VLSI', 'Comm Sys', 'Lunch', 'Micro', 'Lab'],
+                ['VLSI', 'DSP', 'Control', 'Lunch', 'EM Theory', 'Lab'],
+                ['Comm Sys', 'Micro', 'VLSI', 'Lunch', 'DSP', 'Lab'],
+                ['Control', 'EM Theory', 'DSP', 'Lunch', 'VLSI', 'Tutorial'],
+                ['Micro', 'Comm Sys', 'Control', 'Lunch', 'EM Theory', 'Tutorial']
+            ];
+
+            const colors = {
+                'DSP': '#7C3AED',
+                'VLSI': '#C026D3',
+                'Comm Sys': '#06D6A0',
+                'Micro': '#F59E0B',
+                'Control': '#3B82F6',
+                'EM Theory': '#EF4444',
+                'Lab': '#10B981',
+                'Tutorial': '#6366F1',
+                'Lunch': '#CBD5E1'
+            };
+
+            tbody.innerHTML = times.map((time, i) => `
+                <tr>
+                    <td><strong>${time}</strong></td>
+                    ${schedule.map(day => {
+                const subject = day[i];
+                const color = colors[subject] || 'var(--secondary)';
+                return `<td><span class="period-name" style="background: ${color}; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem;">${subject}</span></td>`;
+            }).join('')}
+                </tr>
+            `).join('');
+        }
+
+        function renderAttendance() {
+            const tbody = document.getElementById('attendanceList');
+            const attendanceData = [
+                { subject: 'Digital Signal Processing', total: 45, attended: 42 },
+                { subject: 'VLSI Design', total: 40, attended: 31 },
+                { subject: 'Communication Systems', total: 42, attended: 37 },
+                { subject: 'Microprocessors', total: 38, attended: 35 },
+                { subject: 'Control Systems', total: 35, attended: 30 },
+                { subject: 'EM Theory', total: 30, attended: 28 }
+            ];
+
+            tbody.innerHTML = attendanceData.map(data => {
+                const percentage = Math.round((data.attended / data.total) * 100);
+                const color = percentage >= 75 ? 'var(--accent)' : 'var(--danger)';
+                return `
+                    <tr>
+                        <td class="period-name">${data.subject}</td>
+                        <td>${data.total}</td>
+                        <td>${data.attended}</td>
+                        <td style="color: ${color}; font-weight: 700;">${percentage}%</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderNotes() {
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = notes.map(note => `
+                <div class="note-card">
+                    <div class="note-subject">${note.subject}</div>
+                    <div class="note-title">${note.title}</div>
+                    <div class="note-meta">📄 ${note.type} • ${formatDate(note.date)}</div>
+                    <a href="${note.link}" class="note-btn" target="_blank">View / Download</a>
+                </div>
+            `).join('');
+        }
+
+        function renderAssignments() {
+            const list = document.getElementById('assignmentList');
+            list.innerHTML = assignments.map(assignment => {
+                const isOverdue = new Date(assignment.dueDate) < new Date() && assignment.status === 'open';
+                return `
+                    <div class="assignment-card ${isOverdue ? 'overdue' : ''}">
+                        <div class="assignment-info">
+                            <h3>${assignment.title}</h3>
+                            <div class="assignment-subject">${assignment.subject}</div>
+                            <div class="assignment-due">Due: ${formatDate(assignment.dueDate)}</div>
+                        </div>
+                        <div class="assignment-status status-${assignment.status}">
+                            ${assignment.status === 'open' ? 'Open' : 'Closed'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAnnouncements() {
+            const list = document.getElementById('announcementList');
+            list.innerHTML = announcements.map(announcement => `
+                <div class="announcement-card">
+                    <div class="announcement-header">
+                        <h3 class="announcement-title">${announcement.title}</h3>
+                        <div class="announcement-date">${formatDate(announcement.date)}</div>
+                    </div>
+                    <div class="announcement-content">${announcement.content}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            const categories = ['Farewell 2024', 'Tech Fest', 'Sports Day', 'Annual Day', 'Industrial Visit', 'Classroom', 'Lab Sessions', 'Cultural Event'];
+            grid.innerHTML = categories.map((cat, i) => `
+                <div class="gallery-item" style="background: linear-gradient(135deg, ${getRandomGradient()});">
+                    ${cat}
+                </div>
+            `).join('');
+        }
+
+        function renderAchievements() {
+            const grid = document.getElementById('achievementGrid');
+            grid.innerHTML = achievements.map(achievement => `
+                <div class="achievement-card">
+                    <div class="achievement-category">${achievement.category}</div>
+                    <div class="achievement-title">${achievement.title}</div>
+                    <div class="achievement-student">${achievement.student}</div>
+                    <div class="note-meta">${formatDate(achievement.date)}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderBirthdays() {
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentDate = today.getDate();
+
+            // Check today's birthdays
+            const todayBirthdays = students.filter(s => {
+                const bday = new Date(s.birthday);
+                return bday.getMonth() === currentMonth && bday.getDate() === currentDate;
+            });
+
+            document.getElementById('todayBirthday').textContent =
+                todayBirthdays.length > 0
+                    ? todayBirthdays.map(s => s.name).join(', ')
+                    : 'No birthdays today';
+
+            // This month's birthdays
+            const monthBirthdays = students.filter(s => {
+                const bday = new Date(s.birthday);
+                return bday.getMonth() === currentMonth;
+            }).sort((a, b) => {
+                const dayA = new Date(a.birthday).getDate();
+                const dayB = new Date(b.birthday).getDate();
+                return dayA - dayB;
+            });
+
+            document.getElementById('monthBirthdays').innerHTML = monthBirthdays.map(s => `
+                <div class="birthday-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎂</div>
+                    <div style="font-weight: 600;">${s.name}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-light);">${formatDate(s.birthday, true)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Utility functions
+        function formatDate(dateStr, monthDay = false) {
+            const date = new Date(dateStr);
+            if (monthDay) {
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function getRandomGradient() {
+            const gradients = [
+                '#667eea 0%, #764ba2 100%',
+                '#f093fb 0%, #f5576c 100%',
+                '#4facfe 0%, #00f2fe 100%',
+                '#43e97b 0%, #38f9d7 100%',
+                '#fa709a 0%, #fee140 100%'
+            ];
+            return gradients[Math.floor(Math.random() * gradients.length)];
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        // Search students
+        function searchStudents() {
+            const query = document.getElementById('studentSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.student-card');
+
+            cards.forEach(card => {
+                const name = card.querySelector('.student-name').textContent.toLowerCase();
+                const roll = card.querySelector('.student-roll').textContent.toLowerCase();
+                card.style.display = (name.includes(query) || roll.includes(query)) ? 'block' : 'none';
+            });
+        }
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Form submissions
+        function addStudent(e) {
+            e.preventDefault();
+            const student = {
+                name: document.getElementById('studentName').value,
+                roll: document.getElementById('studentRoll').value,
+                birthday: document.getElementById('studentBirthday').value || '2004-01-01'
+            };
+            students.push(student);
+            renderStudents();
+            renderBirthdays();
+            closeModal('addStudent');
+            e.target.reset();
+            alert('Student added successfully!');
+        }
+
+        function addTeacher(e) {
+            e.preventDefault();
+            const teacher = {
+                subject: document.getElementById('teacherSubject').value,
+                name: document.getElementById('teacherName').value,
+                email: document.getElementById('teacherEmail').value
+            };
+            teachers.push(teacher);
+            renderTeachers();
+            closeModal('addTeacher');
+            e.target.reset();
+            alert('Teacher added successfully!');
+        }
+
+        function addNote(e) {
+            e.preventDefault();
+            const note = {
+                subject: document.getElementById('noteSubject').value,
+                title: document.getElementById('noteTitle').value,
+                type: document.getElementById('noteType').value,
+                link: document.getElementById('noteLink').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+            notes.unshift(note);
+            renderNotes();
+            closeModal('addNote');
+            e.target.reset();
+            alert('Note uploaded successfully!');
+        }
+
+        function addAssignment(e) {
+            e.preventDefault();
+            const assignment = {
+                title: document.getElementById('assignmentTitle').value,
+                subject: document.getElementById('assignmentSubject').value,
+                dueDate: document.getElementById('assignmentDue').value,
+                status: 'open'
+            };
+            assignments.unshift(assignment);
+            renderAssignments();
+            closeModal('addAssignment');
+            e.target.reset();
+            alert('Assignment added successfully!');
+        }
+
+        function addAnnouncement(e) {
+            e.preventDefault();
+            const announcement = {
+                title: document.getElementById('announcementTitle').value,
+                content: document.getElementById('announcementContent').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+            announcements.unshift(announcement);
+            renderAnnouncements();
+            closeModal('addAnnouncement');
+            e.target.reset();
+            alert('Announcement posted successfully!');
+        }
+
+        function addAchievement(e) {
+            e.preventDefault();
+            const achievement = {
+                category: document.getElementById('achievementCategory').value,
+                title: document.getElementById('achievementTitle').value,
+                student: document.getElementById('achievementStudent').value,
+                date: document.getElementById('achievementDate').value
+            };
+            achievements.unshift(achievement);
+            renderAchievements();
+            closeModal('addAchievement');
+            e.target.reset();
+            alert('Achievement added successfully!');
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.theme-toggle');
+            btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        // Initialize all content
+        renderStudents();
+        renderTeachers();
+        renderTimetable();
+        renderAttendance();
+        renderNotes();
+        renderAssignments();
+        renderAnnouncements();
+        renderGallery();
+        renderAchievements();
+        renderBirthdays();
+    </script>
+</body>
+
+</html>
